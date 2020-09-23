@@ -54,3 +54,12 @@ button {
   cursor: pointer;
   margin-left: 0.5rem;
 }
+
+footer {
+  text-align: center;
+}
+
+footer a {
+  font-size: 1.275rem;
+  color: #57b560;
+}

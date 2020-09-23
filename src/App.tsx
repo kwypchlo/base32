@@ -89,6 +89,15 @@ function App() {
               </div>
               <div>{errorMessage && <p id="message">{errorMessage}</p>}</div>
             </form>
+            <footer>
+              <a
+                href="https://github.com/kwypchlo/base32"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                GitHub
+              </a>
+            </footer>
           </div>
         </div>
       </header>

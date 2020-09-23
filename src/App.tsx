@@ -87,9 +87,12 @@ function App() {
                   </button>
                 </div>
               </div>
-              <div>{errorMessage && <p id="message">{errorMessage}</p>}</div>
+              <div>
+                {errorMessage && <p className="error">{errorMessage}</p>}
+              </div>
             </form>
             <footer>
+              Read more on{" "}
               <a
                 href="https://github.com/kwypchlo/base32"
                 target="_blank"

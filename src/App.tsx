@@ -37,71 +37,49 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
 
-        <div className="container mx-auto py-4 flex justify-center">
-          <div className="w-full min-w-xs">
-            <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-              <h1 className="text-gray-900 font-bold text-xl mb-2">
-                Skylink Base32 Encoder
-              </h1>
-              <div className="mb-4">
-                <label
-                  className="block text-gray-700 text-sm font-bold mb-2"
-                  htmlFor="input"
-                >
-                  Source skylink
-                </label>
-                <div className="flex">
-                  <input
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="input"
-                    type="text"
-                    placeholder="ie. XABvi7JtJbQSMAcDwnUnmp2FKDPjg8_tTTFP4BwMSxVdEg"
-                    autoFocus={true}
-                    value={base64Skylink}
-                    onChange={handleBase64SkylinkChange}
-                  />
-                </div>
-              </div>
-              <div className="mb-4">
-                <label
-                  className="block text-gray-700 text-sm font-bold mb-2"
-                  htmlFor="output"
-                >
-                  Base32 skylink
-                </label>
-                <div className="flex">
-                  <input
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="output"
-                    type="text"
-                    readOnly={true}
-                    value={base32Skylink}
-                  />
-                  <button
-                    type="button"
-                    id="copy-output"
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-4"
-                    onClick={() => clipboardy.write(base32Skylink)}
-                  >
-                    copy
-                  </button>
-                </div>
-              </div>
-              <div>
-                {errorMessage && <p className="error">{errorMessage}</p>}
-              </div>
-            </form>
-            <footer>
-              Read more on{" "}
-              <a
-                href="https://github.com/kwypchlo/base32"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                GitHub
-              </a>
-            </footer>
+        <div className="container">
+          <h1>Skylink Base32 Encoder</h1>
+          <div className="mb-4">
+            <label htmlFor="input">Source skylink</label>
+            <div className="flex">
+              <input
+                id="input"
+                type="text"
+                placeholder="ie. XABvi7JtJbQSMAcDwnUnmp2FKDPjg8_tTTFP4BwMSxVdEg"
+                autoFocus={true}
+                value={base64Skylink}
+                onChange={handleBase64SkylinkChange}
+              />
+            </div>
           </div>
+          <div className="mb-4">
+            <label htmlFor="output">Base32 skylink</label>
+            <div className="flex">
+              <input
+                id="output"
+                type="text"
+                readOnly={true}
+                value={base32Skylink}
+              />
+              <button
+                type="button"
+                onClick={() => clipboardy.write(base32Skylink)}
+              >
+                copy
+              </button>
+            </div>
+          </div>
+          <div>{errorMessage && <p className="error">{errorMessage}</p>}</div>
+          <footer>
+            Read more on{" "}
+            <a
+              href="https://github.com/kwypchlo/base32"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub
+            </a>
+          </footer>
         </div>
       </header>
     </div>

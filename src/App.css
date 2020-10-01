@@ -45,6 +45,11 @@ label {
   color: white;
 }
 
+.skylink {
+  font-size: 1rem;
+  color: #57b560;
+}
+
 .mb-4 {
   margin-bottom: 4rem;
 }

@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from "react";
 import * as clipboardy from "clipboardy";
 import { decodeBase64, encodeBase32 } from "./crypto";
+import { parseSkylink, defaultSkynetPortalUrl } from "skynet-js";
 import logo from "./logo.svg";
 import "./App.css";
 import "typeface-metropolis";
@@ -12,16 +13,23 @@ function App() {
 
   const handleBase64SkylinkChange = useCallback(
     (event) => {
-      setErrorMessage("");
       setBase64Skylink(event.target.value);
+      setErrorMessage("");
 
-      if (!event.target.value) {
+      if (!event.target.value) return;
+
+      let skylink = "";
+
+      try {
+        skylink = parseSkylink(event.target.value);
+      } catch (error) {
+        setErrorMessage(error.message);
         setBase32Skylink("");
         return;
       }
 
       try {
-        const decoded = decodeBase64(event.target.value);
+        const decoded = decodeBase64(skylink);
         const encoded = encodeBase32(decoded);
 
         setBase32Skylink(encoded);
@@ -31,6 +39,9 @@ function App() {
     },
     [setBase64Skylink, setBase32Skylink, setErrorMessage]
   );
+
+  const base32Url = new URL(defaultSkynetPortalUrl);
+  base32Url.hostname = `${base32Skylink}.${base32Url.hostname}`;
 
   return (
     <div className="App">
@@ -68,8 +79,20 @@ function App() {
                 copy
               </button>
             </div>
+            <div>
+              {errorMessage && <p className="error">{errorMessage}</p>}
+              {base32Skylink && (
+                <a
+                  className="skylink"
+                  href={base32Url.toString()}
+                  target="blank"
+                  rel="noopener noreferrer"
+                >
+                  {base32Url.toString()}
+                </a>
+              )}
+            </div>
           </div>
-          <div>{errorMessage && <p className="error">{errorMessage}</p>}</div>
           <footer>
             Read more on{" "}
             <a

@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import * as clipboardy from "clipboardy";
 import { decodeBase64, encodeBase32 } from "./crypto";
-import { parseSkylink, defaultSkynetPortalUrl } from "skynet-js";
+import { parseSkylink, defaultPortalUrl } from "skynet-js";
 import logo from "./logo.svg";
 import "./App.css";
 import "typeface-metropolis";
@@ -40,8 +40,9 @@ function App() {
     [setBase64Skylink, setBase32Skylink, setErrorMessage]
   );
 
-  const base32Url = new URL(defaultSkynetPortalUrl);
-  base32Url.hostname = `${base32Skylink}.${base32Url.hostname}`;
+  const portalUrl = new URL(defaultPortalUrl());
+  portalUrl.hostname = `${base32Skylink}.${portalUrl.hostname}`;
+  const base32Url = portalUrl.toString();
 
   return (
     <div className="App">
@@ -84,11 +85,11 @@ function App() {
               {base32Skylink && (
                 <a
                   className="skylink"
-                  href={base32Url.toString()}
+                  href={base32Url}
                   target="blank"
                   rel="noopener noreferrer"
                 >
-                  {base32Url.toString()}
+                  {base32Url}
                 </a>
               )}
             </div>

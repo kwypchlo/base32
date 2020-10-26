@@ -4,7 +4,7 @@ import { decodeBase64, encodeBase32 } from "./crypto";
 import { parseSkylink, defaultPortalUrl } from "skynet-js";
 import logo from "./logo.svg";
 import "./App.css";
-import "typeface-metropolis";
+import "fontsource-metropolis/all.css";
 
 function App() {
   const [base64Skylink, setBase64Skylink] = useState("");
@@ -41,7 +41,9 @@ function App() {
   );
 
   const portalUrl = new URL(defaultPortalUrl());
-  portalUrl.hostname = `${base32Skylink}.${portalUrl.hostname}`;
+  // FIXME: temporary workaround for https://github.com/NebulousLabs/skynet-webportal/issues/423
+  const portalDomainAndTLD = portalUrl.hostname.split(".").slice(-2).join(".");
+  portalUrl.hostname = `${base32Skylink}.${portalDomainAndTLD}`;
   const base32Url = portalUrl.toString();
 
   return (

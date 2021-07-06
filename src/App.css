@@ -54,14 +54,24 @@ label {
   margin-bottom: 4rem;
 }
 
-button {
-  color: white;
+.button {
   background-color: #57b560;
   border-radius: 0.25rem;
-  font-weight: 700;
+  font-weight: 500;
   border: none;
   cursor: pointer;
   margin-left: 0.5rem;
+  padding: 0 10px;
+  display: inline-block;
+  position: relative;
+}
+
+.button a {
+  color: white;
+  text-decoration: none;
+  font-size: medium;
+  list-style: 100%;
+  vertical-align: middle;
 }
 
 .container {

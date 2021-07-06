@@ -14,7 +14,7 @@ h1 {
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #202020;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -47,21 +47,31 @@ label {
 
 .skylink {
   font-size: 1rem;
-  color: #57b560;
+  color: #00c65e;
 }
 
 .mb-4 {
   margin-bottom: 4rem;
 }
 
-button {
-  color: white;
-  background-color: #57b560;
+.button {
+  background-color: #00c65e;
   border-radius: 0.25rem;
   font-weight: 700;
   border: none;
   cursor: pointer;
   margin-left: 0.5rem;
+  padding: 0 10px;
+  display: inline-block;
+  position: relative;
+}
+
+.button a {
+  color: white;
+  text-decoration: none;
+  font-size: medium;
+  list-style: 100%;
+  vertical-align: middle;
 }
 
 .container {
@@ -80,5 +90,5 @@ footer {
 }
 
 a {
-  color: #57b560;
+  color: #00c65e;
 }

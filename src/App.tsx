@@ -1,10 +1,14 @@
 import React, { useCallback, useState } from "react";
 import * as clipboardy from "clipboardy";
-import { decodeBase64, encodeBase32 } from "./crypto";
-import { parseSkylink, defaultPortalUrl } from "skynet-js";
+import { SkynetClient } from "skynet-js";
 import logo from "./logo.svg";
 import "./App.css";
 import "fontsource-metropolis/all.css";
+
+const portal =
+  window.location.hostname === "localhost" ? "https://siasky.net" : undefined;
+
+const client = new SkynetClient(portal);
 
 function App() {
   const [base64Skylink, setBase64Skylink] = useState("");
@@ -18,33 +22,21 @@ function App() {
 
       if (!event.target.value) return;
 
-      let skylink = "";
-
       try {
-        skylink = parseSkylink(event.target.value);
+        client
+          .getSkylinkUrl(event.target.value, { subdomain: true })
+          .then((base32Url) => setBase32Skylink(base32Url))
+          .catch((error) => {
+            setBase32Skylink("");
+            setErrorMessage(error.message);
+          });
       } catch (error) {
-        setErrorMessage(error.message);
         setBase32Skylink("");
-        return;
-      }
-
-      try {
-        const decoded = decodeBase64(skylink);
-        const encoded = encodeBase32(decoded);
-
-        setBase32Skylink(encoded);
-      } catch (error) {
         setErrorMessage(error.message);
       }
     },
     [setBase64Skylink, setBase32Skylink, setErrorMessage]
   );
-
-  const portalUrl = new URL(defaultPortalUrl());
-  // FIXME: temporary workaround for https://github.com/NebulousLabs/skynet-webportal/issues/423
-  const portalDomainAndTLD = portalUrl.hostname.split(".").slice(-2).join(".");
-  portalUrl.hostname = `${base32Skylink}.${portalDomainAndTLD}`;
-  const base32Url = portalUrl.toString();
 
   return (
     <div className="App">
@@ -75,26 +67,32 @@ function App() {
                 readOnly={true}
                 value={base32Skylink}
               />
-              <button
-                type="button"
-                onClick={() => clipboardy.write(base32Skylink)}
+              <div
+                className="button"
+                style={
+                  base32Skylink ? {} : { pointerEvents: "none", opacity: "0.4" }
+                }
               >
-                copy
-              </button>
-            </div>
-            <div>
-              {errorMessage && <p className="error">{errorMessage}</p>}
-              {base32Skylink && (
+                <a onClick={() => clipboardy.write(base32Skylink)} href="#">
+                  copy
+                </a>
+              </div>
+              <div
+                className="button"
+                style={
+                  base32Skylink ? {} : { pointerEvents: "none", opacity: "0.4" }
+                }
+              >
                 <a
-                  className="skylink"
-                  href={base32Url}
+                  href={base32Skylink}
                   target="blank"
                   rel="noopener noreferrer"
                 >
-                  {base32Url}
+                  view
                 </a>
-              )}
+              </div>
             </div>
+            <div>{errorMessage && <p className="error">{errorMessage}</p>}</div>
           </div>
           <footer>
             Read more on{" "}

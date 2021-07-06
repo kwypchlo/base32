@@ -14,7 +14,7 @@ h1 {
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #202020;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -47,7 +47,7 @@ label {
 
 .skylink {
   font-size: 1rem;
-  color: #57b560;
+  color: #00c65e;
 }
 
 .mb-4 {
@@ -55,9 +55,9 @@ label {
 }
 
 .button {
-  background-color: #57b560;
+  background-color: #00c65e;
   border-radius: 0.25rem;
-  font-weight: 500;
+  font-weight: 700;
   border: none;
   cursor: pointer;
   margin-left: 0.5rem;
@@ -90,5 +90,5 @@ footer {
 }
 
 a {
-  color: #57b560;
+  color: #00c65e;
 }
